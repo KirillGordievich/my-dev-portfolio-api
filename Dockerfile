@@ -1,30 +1,25 @@
 FROM node:22-alpine AS builder
 
-RUN npm install -g pnpm@11
+RUN corepack enable
 
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
 COPY prisma ./prisma
-RUN pnpm install --frozen-lockfile --ignore-scripts && pnpm exec prisma generate
+RUN corepack install && pnpm install --frozen-lockfile --ignore-scripts && pnpm exec prisma generate
 
 COPY . .
 RUN pnpm run build
 
-FROM node:22-alpine
+RUN pnpm prune --prod
 
-RUN npm install -g pnpm@11
+FROM node:22-alpine
 
 ENV NODE_ENV=production
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
-COPY prisma ./prisma
-RUN pnpm install --frozen-lockfile --prod --ignore-scripts && pnpm exec prisma generate
-
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 
 CMD ["node", "dist/main.js"]
-
-# Use this if you can not run migration in ci cd
-# CMD ["sh", "-c", "pnpm exec prisma migrate deploy && node dist/main.js"]

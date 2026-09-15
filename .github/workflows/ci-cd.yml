@@ -40,8 +40,9 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          command_timeout: 30m
           script: |
             cd ${{ secrets.APP_DIR || '/opt/dev-portfolio-api' }}
             git pull origin master
-            docker compose build --no-cache app migration
+            docker compose build app
             docker compose up -d
