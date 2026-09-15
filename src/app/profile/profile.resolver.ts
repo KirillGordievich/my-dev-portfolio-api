@@ -1,6 +1,6 @@
 import { Resolver, Query, ResolveField, Parent } from '@nestjs/graphql';
 import { Profile } from './profile.model.js';
-import { SocialLink } from './social-link.model.js';
+import { SocialLink } from '../social-link/social-link.model.js';
 import { Skill } from '../skill/skill.model.js';
 import { Experience } from '../experience/experience.model.js';
 import { Project } from '../project/project.model.js';
@@ -8,6 +8,7 @@ import { ProfileService } from './profile.service.js';
 import { SkillService } from '../skill/skill.service.js';
 import { ExperienceService } from '../experience/experience.service.js';
 import { ProjectService } from '../project/project.service.js';
+import { SocialLinkService } from '../social-link/social-link.service.js';
 import type { Profile as PrismaProfile } from '@prisma/client';
 
 @Resolver(() => Profile)
@@ -17,6 +18,7 @@ export class ProfileResolver {
     private readonly skillService: SkillService,
     private readonly experienceService: ExperienceService,
     private readonly projectService: ProjectService,
+    private readonly socialLinkService: SocialLinkService,
   ) {}
 
   @Query(() => Profile, {
@@ -44,6 +46,6 @@ export class ProfileResolver {
 
   @ResolveField(() => [SocialLink])
   socialLinks(@Parent() profile: PrismaProfile) {
-    return this.profileService.findSocialLinks(profile.id);
+    return this.socialLinkService.findByProfileId(profile.id);
   }
 }

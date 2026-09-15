@@ -2,7 +2,7 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Skill } from '../skill/skill.model.js';
 import { Experience } from '../experience/experience.model.js';
 import { Project } from '../project/project.model.js';
-import { SocialLink } from './social-link.model.js';
+import { SocialLink } from '../social-link/social-link.model.js';
 
 @ObjectType()
 export class Profile {

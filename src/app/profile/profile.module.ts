@@ -4,9 +4,10 @@ import { ProfileService } from './profile.service.js';
 import { SkillModule } from '../skill/skill.module.js';
 import { ExperienceModule } from '../experience/experience.module.js';
 import { ProjectModule } from '../project/project.module.js';
+import { SocialLinkModule } from '../social-link/social-link.module.js';
 
 @Module({
-  imports: [SkillModule, ExperienceModule, ProjectModule],
+  imports: [SkillModule, ExperienceModule, ProjectModule, SocialLinkModule],
   providers: [ProfileResolver, ProfileService],
 })
 export class ProfileModule {}

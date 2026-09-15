@@ -2,10 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service.js';
 
 @Injectable()
-export class ProfileService {
+export class SocialLinkService {
   constructor(private readonly prisma: PrismaService) {}
 
-  findFirst() {
-    return this.prisma.profile.findFirst();
+  findByProfileId(profileId: string) {
+    return this.prisma.socialLink.findMany({
+      where: { profileId },
+    });
   }
 }
