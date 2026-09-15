@@ -11,7 +11,7 @@ RUN corepack install && pnpm install --frozen-lockfile --ignore-scripts && pnpm 
 COPY . .
 RUN pnpm run build
 
-RUN pnpm prune --prod
+RUN pnpm prune --prod --ignore-scripts
 
 FROM node:22-alpine
 
