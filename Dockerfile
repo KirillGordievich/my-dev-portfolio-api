@@ -16,6 +16,11 @@ FROM builder AS migration
 
 CMD ["pnpm", "exec", "prisma", "migrate", "deploy"]
 
+# Only for seeding
+FROM builder AS seed
+
+CMD ["pnpm", "exec", "prisma", "db", "seed"]
+
 FROM builder AS production
 
 RUN pnpm prune --prod --ignore-scripts
