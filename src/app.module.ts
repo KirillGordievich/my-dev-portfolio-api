@@ -13,7 +13,7 @@ import { ProjectModule } from './app/project/project.module.js';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      playground: process.env.NODE_ENV !== 'production',
+      playground: true,
       introspection: true,
     }),
     DatabaseModule,
