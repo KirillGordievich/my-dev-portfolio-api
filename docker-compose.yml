@@ -13,16 +13,19 @@ services:
       retries: 5
 
   migration:
-    image: dev-portfolio-api
+    build:
+      context: .
+      target: migration
     env_file:
       - .env.docker
-    command: pnpm exec prisma migrate deploy
     depends_on:
       postgres:
         condition: service_healthy
 
   app:
-    build: .
+    build:
+      context: .
+      target: production
     image: dev-portfolio-api
     restart: unless-stopped
     env_file:

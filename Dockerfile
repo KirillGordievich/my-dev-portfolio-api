@@ -11,15 +11,15 @@ RUN corepack install && pnpm install --frozen-lockfile --ignore-scripts && pnpm 
 COPY . .
 RUN pnpm run build
 
+# Only for migration
+FROM builder AS migration
+
+CMD ["pnpm", "exec", "prisma", "migrate", "deploy"]
+
+FROM builder AS production
+
 RUN pnpm prune --prod --ignore-scripts
 
-FROM node:22-alpine
-
 ENV NODE_ENV=production
-WORKDIR /app
-
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
 
 CMD ["node", "dist/main.js"]
