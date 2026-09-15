@@ -1,0 +1,92 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum SkillLevel {
+  Beginner     @map("beginner")
+  Intermediate @map("intermediate")
+  Advanced     @map("advanced")
+
+  @@map("enum_skill_level")
+}
+
+enum SocialPlatform {
+  Github   @map("github")
+  Linkedin @map("linkedin")
+  Telegram @map("telegram")
+  Email    @map("email")
+
+  @@map("enum_social_platform")
+}
+
+model Profile {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt   DateTime @default(now()) @db.Timestamptz()
+  updatedAt   DateTime @default(now()) @updatedAt @db.Timestamptz()
+  name        String
+  title       String
+  description String   @db.Text
+  email       String?
+  avatar      String?
+
+  skills      Skill[]
+  experience  Experience[]
+  socialLinks SocialLink[]
+  projects    Project[]
+
+  @@map("profiles")
+}
+
+model Skill {
+  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String
+  level     SkillLevel
+  profileId String     @db.Uuid
+  profile   Profile    @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@unique([name, profileId])
+  @@map("skills")
+}
+
+model Experience {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt    DateTime  @default(now()) @db.Timestamptz()
+  updatedAt    DateTime  @default(now()) @updatedAt @db.Timestamptz()
+  company      String
+  position     String
+  startDate    DateTime  @db.Timestamptz()
+  endDate      DateTime? @db.Timestamptz()
+  description  String    @db.Text
+  achievements String[]
+  profileId    String    @db.Uuid
+  profile      Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@map("experiences")
+}
+
+model SocialLink {
+  id        String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  platform  SocialPlatform
+  url       String
+  profileId String         @db.Uuid
+  profile   Profile        @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@unique([platform, profileId])
+  @@map("social_links")
+}
+
+model Project {
+  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String
+  url       String
+  profileId String  @db.Uuid
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@unique([name, profileId])
+  @@map("projects")
+}

@@ -1,0 +1,21 @@
+node_modules
+dist
+.env
+.env.docker
+coverage
+src/schema.gql
+
+# IDE
+.idea
+.vscode
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build
+*.tsbuildinfo
+tsconfig.build.tsbuildinfo
