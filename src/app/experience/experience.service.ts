@@ -11,10 +11,4 @@ export class ExperienceService {
       orderBy: { startDate: 'desc' },
     });
   }
-
-  findAll() {
-    return this.prisma.experience.findMany({
-      orderBy: { startDate: 'desc' },
-    });
-  }
 }

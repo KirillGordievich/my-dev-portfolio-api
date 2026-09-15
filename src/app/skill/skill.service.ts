@@ -11,10 +11,4 @@ export class SkillService {
       orderBy: { level: 'asc' },
     });
   }
-
-  findAll() {
-    return this.prisma.skill.findMany({
-      orderBy: { level: 'asc' },
-    });
-  }
 }

@@ -10,8 +10,4 @@ export class ProjectService {
       where: { profileId },
     });
   }
-
-  findAll() {
-    return this.prisma.project.findMany();
-  }
 }
