@@ -33,12 +33,10 @@ cp .env.example .env.docker
 docker compose up
 ```
 
-3. **Seed database (first time only)**
-```bash
-docker exec -it dev_portfolio-app pnpm exec tsx prisma/seed.ts
-```
+3. **Send request to local path**
 
-4. **Send request to local path**
+See postman collections in postman-collection.json to requests examples
+
 ```
 http://localhost:3000/graphql
 ```
