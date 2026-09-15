@@ -1,0 +1,10 @@
+{
+  "name": "My portfolio prod",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://5.188.29.246:3000/graphql",
+      "enabled": true
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "My portfolio local",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/graphql",
+      "enabled": true
+    }
+  ]
+}

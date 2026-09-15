@@ -1,0 +1,98 @@
+{
+  "info": {
+    "name": "dev-portfolio-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Profile",
+      "item": [
+        {
+          "name": "Get full profile",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"{ profile { id name title description email avatar skills { id name level } experience { id company position startDate endDate description achievements } projects { id name url } socialLinks { id platform url } } }\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get profile (basic)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"{ profile { id name title description email avatar } }\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Skills",
+      "item": [
+        {
+          "name": "Get all skills",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"{ skills { id name level } }\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "Get all projects",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"{ projects { id name url } }\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Experience",
+      "item": [
+        {
+          "name": "Get all experiences",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"{ experiences { id company position startDate endDate description achievements } }\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
